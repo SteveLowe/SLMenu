@@ -2,7 +2,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 Describe 'SLMenu Module' {
     It 'Should import without error' {
-        {Import-Module "$here\SLMenu.psd1"} | Should not throw
+        {Import-Module "$here\..\SLMenu\SLMenu.psd1"} | Should not throw
     }
 
     It 'Should not have any PSScriptAnalyzer warnings' {

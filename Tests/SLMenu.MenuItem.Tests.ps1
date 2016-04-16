@@ -1,6 +1,6 @@
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $script = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.ps1", ".psm1")
-Import-Module "$here\$script"
+Import-Module "$here\..\SLMenu\$script"
 
 Describe "Get-SLMenuChar" {
     $MenuChar = ''

@@ -1,8 +1,8 @@
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $script = (Split-Path -Leaf $MyInvocation.MyCommand.Path).Replace(".Tests.ps1", ".psm1")
-Import-Module "$here\SLMenu.ConsoleCursor.psm1"
-Import-Module "$here\SLMenu.MenuItem.psm1"
-Import-Module "$here\$script"
+Import-Module "$here\..\SLMenu\SLMenu.ConsoleCursor.psm1"
+Import-Module "$here\..\SLMenu\SLMenu.MenuItem.psm1"
+Import-Module "$here\..\SLMenu\$script"
 
 # Read this:
 # https://github.com/pester/Pester/wiki/Unit-Testing-within-Modules
