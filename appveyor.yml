@@ -1,6 +1,10 @@
+os: WMF 5
+
 install:
-  - ps: Install-Module -Name pester -Force
-  - ps: Install-Module -Name PSScriptAnalyzer -Force
+  - cinst -y pester
+  - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
+  - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
+  - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
 
 build: false
 
