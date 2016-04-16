@@ -1,14 +1,11 @@
 os: WMF 5
 
 install:
-  - cinst -y pester
   - ps: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
-  - ps: Install-Module -Name Pester -Confirm:$false -Force -ErrorAction SilentlyContinue
-  - ps: Install-Module -Name PSScriptAnalyzer -Confirm:$false -Force -ErrorAction SilentlyContinue
+  - ps: Install-Module -Name Pester -Force
+  - ps: Install-Module -Name PSScriptAnalyzer -Force
 
 build: false
 
 test_script:
-  - ps: $res = Invoke-Pester -Path ".\Tests" -OutputFormat NUnitXml -OutputFile TestsResults.xml -PassThru
-  - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestsResults.xml))
-  - ps: if ($res.FailedCount -gt 0) { throw "$($res.FailedCount) tests failed."}
+  - ps: . .\Tests\appveyor.pester.ps1
