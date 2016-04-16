@@ -1,12 +1,12 @@
 SLMenu
 ======
+[![Build status](https://ci.appveyor.com/api/projects/status/o0quv9l2lhm7611b?svg=true)](https://ci.appveyor.com/project/SteveLowe/slmenu)
+
 A Powershell (v3+) text user interface library.
 
   * [Menu](#menu)
   * [Status](#status)
   * [Misc](#misc)
-
-[![Build status](https://ci.appveyor.com/api/projects/status/o0quv9l2lhm7611b?svg=true)](https://ci.appveyor.com/project/SteveLowe/slmenu)
 
 
 Installing
