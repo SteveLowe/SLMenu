@@ -1,6 +1,10 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+if ($Host.Name -ilike '*ISE*') {
+    Write-Warning 'SLMenu cannot be used in the Powershell ISE'
+}
+
 <#
 .SYNOPSIS
 Show the Menu, and return the MenuItem selected
@@ -69,7 +73,10 @@ function Show-SLMenu {
     )
     Write-Debug "Show-SLMenu($Title)"
     if ($NonInteractive) {
-        throw 'Cannot run menu when -NonInteractive'
+        Write-Error 'Cannot run menu when -NonInteractive'
+    }
+    if ($Host.Name -ilike '*ISE*') {
+        Write-Error 'Cannot run in ISE'
     }
 
     ValidateMenuItems $MenuItems
