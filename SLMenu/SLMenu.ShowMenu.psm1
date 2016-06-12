@@ -90,7 +90,7 @@ function Show-SLMenu {
         Inline = $Inline.ToBool()
     }
     [PSObject]$MenuData = [PSCustomObject]@{
-        Position = $Position
+        Position = 0
         ValidPositions = [int[]]@()
         KeyPress = $null
     }
@@ -98,11 +98,10 @@ function Show-SLMenu {
     try {
         # Get Valid Positions
         $MenuData.ValidPositions = GetValidPositions $MenuItems
-        # Make sure $Position is valid, make it valid if not
-        if ($MenuData.Position -ge $MenuData.ValidPositions[-1] -or $MenuData.Position -lt 0) {
-            $MenuData.Position = 0
+        # Make sure Position is valid, and convert it to a ValidPosition
+        if ($MenuData.ValidPositions.Contains($Position)) {
+            $MenuData.Position = $MenuData.ValidPositions.IndexOf($Position)
         }
-        $MenuData.Position = $MenuData.ValidPositions.IndexOf($MenuData.Position)
 
         if ($FlushInput) {
             # Ignore any buffered input

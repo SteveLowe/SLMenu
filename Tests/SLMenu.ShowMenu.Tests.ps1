@@ -97,6 +97,30 @@ Describe "SLMenu GetValidPositions" {
                 $ValidPositions[2] | Should Be 4
             }
         }
+
+        Context "when given a menu with the first item as non-selectible" {
+                    $MenuItems = [PSObject[]]@(
+                ([PSCustomObject]@{IsComment = $true; IsSeparator = $false})
+                ([PSCustomObject]@{IsComment = $false; IsSeparator = $false})
+                ([PSCustomObject]@{IsComment = $false; IsSeparator = $false})
+                ([PSCustomObject]@{IsComment = $false; IsSeparator = $true})
+                ([PSCustomObject]@{IsComment = $false; IsSeparator = $false})
+            )
+            $ValidPositions = GetValidPositions -MenuItems $MenuItems
+
+            It "returns array of length 3" {
+                $ValidPositions.Length | Should Be 3
+            }
+            It "returns value 1 for index 0" {
+                $ValidPositions[0] | Should Be 1
+            }
+            It "returns value 2 for index 1" {
+                $ValidPositions[1] | Should Be 2
+            }
+            It "returns value 4 for index 2" {
+                $ValidPositions[2] | Should Be 4
+            }
+        }
     }
 }
 
