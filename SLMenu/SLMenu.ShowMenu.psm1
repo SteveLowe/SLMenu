@@ -276,7 +276,8 @@ function Show-SLMenuExecute {
             if ($Response.Data -is [ScriptBlock]) {
                 # Note: We are using & here instead of .Invoke()
                 # .Invoke() blocks output until the scriptblock has finished executing
-                &$Response.Data
+                $Arguments = $Response.MenuItem.Arguments
+                &$Response.Data @Arguments
                 if (!$LoopAfterChoice) {
                     return
                 }

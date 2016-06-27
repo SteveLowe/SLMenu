@@ -67,6 +67,9 @@ function New-SLMenuItemList {
 # The Object to return when Show-SLMenu is run
 # This should be a ScriptBlock when calling Show-SLMenuExecute
 #
+#.PARAMETER Arguments
+# Arrary of objects to be passed to Data as arguments, if it is a ScriptBlock and Show-SLMenuExecute is used.
+#
 #.PARAMETER ExtraKeys
 # Extra Characters that can be pressed to select this MenuItem
 #
@@ -103,6 +106,9 @@ function New-SLMenuItem {
         [parameter(Position=3)]
         [Object]$Data = $null,
 
+        [parameter()]
+        [Object[]]$Arguments = @(),
+
         [char[]]$ExtraKeys = @(),
         [int[]]$KeyNums = @(),
 
@@ -123,6 +129,7 @@ function New-SLMenuItem {
         Key = $Key
         Name = $Name
         Data = $Data
+        Arguments = $Arguments
         Number = 0
         ExtraKeys = $ExtraKeys
         KeyNums = $KeyNums
