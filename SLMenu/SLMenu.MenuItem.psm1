@@ -68,7 +68,7 @@ function New-SLMenuItemList {
 # This should be a ScriptBlock when calling Show-SLMenuExecute
 #
 #.PARAMETER Arguments
-# Arrary of objects to be passed to Data as arguments, if it is a ScriptBlock and Show-SLMenuExecute is used.
+# Array of objects to be passed to Data as arguments, if it is a ScriptBlock and Show-SLMenuExecute is used.
 #
 #.PARAMETER ExtraKeys
 # Extra Characters that can be pressed to select this MenuItem

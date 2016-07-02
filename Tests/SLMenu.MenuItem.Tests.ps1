@@ -55,7 +55,7 @@ Describe "SLMenuItems" {
         (New-SLMenuItem -Key '-').IsSeparator | Should Be $true
     }
 
-    It "-comment returns comment" {
+    It "-Comment returns comment" {
         (New-SLMenuItem -Comment).IsComment | Should Be $true
     }
     It "space key returns separator" {
