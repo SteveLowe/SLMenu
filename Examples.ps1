@@ -108,7 +108,7 @@ function MenuDynamic {
         $MenuItems.Add( (New-SLMenuItemQuit -Name 'Back') )
 
         $MenuItems.ToArray()
-    } -Title 'Test Dynamic' -Message 'This will show 2 - 4 Random menu items. The MenuItems list is recreated every time you return back to the menu' -Clear -LoopAfterChoice
+    } -Title 'Test Dynamic' -Message 'This will show 2 - 4 Random menu items. The MenuItems list is recreated every time you return to the menu' -Clear -LoopAfterChoice
 }
 
 try {

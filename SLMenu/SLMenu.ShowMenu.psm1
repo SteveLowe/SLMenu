@@ -127,10 +127,10 @@ function Show-SLMenu {
             }
         }
 
-        DrawMenuHeader -MenuArgs $MenuArgs -MenuData $MenuData
+        DrawMenuHeader -MenuArgs $MenuArgs
         Invoke-MenuScript $PreScript
         $MenuItemsPos = $Host.UI.RawUI.CursorPosition
-        DrawMenu -MenuArgs $MenuArgs -MenuData $MenuData -NoPosition
+        DrawMenuBody -MenuArgs $MenuArgs -MenuData $MenuData -NoPosition
         DrawMenuFooter -MenuArgs $MenuArgs -MenuData $MenuData
         Invoke-MenuScript $PostScript
         $MenuEndPos = $Host.UI.RawUI.CursorPosition
@@ -149,7 +149,7 @@ function Show-SLMenu {
             elseif ($MenuData.Position -ge $MenuData.ValidPositions.Length) { $MenuData.Position = 0 }
 
             # Draw Menu
-            DrawMenu -MenuArgs $MenuArgs -MenuData $MenuData
+            DrawMenuBody -MenuArgs $MenuArgs -MenuData $MenuData
 
             # If we made a valid selction on the previous run then exit here
             if ($null -ne $Selected.MenuItem) {
@@ -307,8 +307,7 @@ function Show-SLMenuExecute {
 function DrawMenuHeader {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
     param (
-        [PSObject]$MenuArgs,
-        [PSObject]$MenuData
+        [PSObject]$MenuArgs
     )
     Write-Debug "DrawMenuHeader()"
 
@@ -319,25 +318,23 @@ function DrawMenuHeader {
         }
     }
 
-    Write-Host '-- ' -NoNewLine
-    Write-Host $MenuArgs.Title -NoNewLine
-    Write-Host ' --' -NoNewLine
+    Write-Host "-- $($MenuArgs.Title) --" -NoNewLine
     if ($MenuArgs.Inline) {
         Clear-SLConsoleLine
     }
     else {
-        Write-Host ''.PadRight($Host.UI.RawUI.BufferSize.Width - $Host.UI.RawUI.CursorPosition.X, '-') -NoNewLine
+        Clear-SLConsoleLine -Char '-'
     }
 } # end DrawMenuHeader
 # ------------------------------------------------------------------------------
-function DrawMenu {
+function DrawMenuBody {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
     param (
         [PSObject]$MenuArgs,
         [PSObject]$MenuData,
         [switch]$NoPosition
     )
-    Write-Debug "DrawMenu()"
+    Write-Debug "DrawMenuBody()"
 
     [int]$MenuPosition = $MenuData.ValidPositions[$MenuData.Position]
     if ($NoPosition) {
@@ -354,7 +351,6 @@ function DrawMenu {
             $fg = $Host.UI.RawUI.ForegroundColor
             $bg = $Host.UI.RawUI.BackgroundColor
         }
-
         if ($MenuItem.IsComment) {
             Write-Host $MenuItem.Name -NoNewLine
             Clear-SLConsoleLine
@@ -364,8 +360,7 @@ function DrawMenu {
             Clear-SLConsoleLine
         }
         else {
-            Write-Host ' ' -NoNewLine
-            Write-Host "$($MenuItem.Key): $($MenuItem.Name)" -NoNewLine -ForegroundColor $fg -BackgroundColor $bg
+            Write-Host " $($MenuItem.Key): $($MenuItem.Name)" -NoNewLine -ForegroundColor $fg -BackgroundColor $bg
             if ($MenuItem.Message -ne '') {
                 Write-Host ' ' -NoNewLine
                 Write-Host $MenuItem.Message -ForegroundColor $MenuItem.ForegroundColor -BackgroundColor $MenuItem.BackgroundColor -NoNewLine
@@ -373,7 +368,7 @@ function DrawMenu {
             Clear-SLConsoleLine
         }
     }
-} # End DrawMenu
+} # End DrawMenuBody
 # ------------------------------------------------------------------------------
 function DrawMenuFooter {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingWriteHost", "")]
@@ -391,7 +386,7 @@ function DrawMenuFooter {
             Write-Host '----------' -NoNewLine; Clear-SLConsoleLine
             Write-Host $MenuArgs.Message
         }
-        Write-Host ''.PadRight($Host.UI.RawUI.BufferSize.Width, '-') -NoNewLine
+        Clear-SLConsoleLine -Char '-'
     }
 } # end DrawMenuFooter
 # ------------------------------------------------------------------------------

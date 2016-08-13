@@ -20,16 +20,30 @@ function Clear-SLConsoleLine {
     param (
         [switch]$FromStart,
         [switch]$Return,
-        [int]$Count = 1
+        [int]$Count = 1,
+        [char]$Char = ' '
     )
     if ($FromStart) { Move-SLConsoleCursor -X 0 }
 
     $InitialPos = $Host.UI.RawUI.CursorPosition
 
-    [int]$ScreenWidthRemaining = $Host.UI.RawUI.BufferSize.Width - $Host.UI.RawUI.CursorPosition.X
-    Write-Host ''.PadRight($ScreenWidthRemaining, ' ') -NoNewLine
+    [int]$ScreenWidthRemaining = $Host.UI.RawUI.BufferSize.Width - $InitialPos.X
+    Write-Host ''.PadRight($ScreenWidthRemaining, $Char) -NoNewLine
+
+    if ($Host.UI.RawUI.CursorPosition.X -eq $Host.UI.RawUI.BufferSize.Width -1) {
+        # HACK
+        # This is a workaround for what looks like a bug in powershell 5.0/5.1
+        # If you write chars to the screen up to and including the last char in the row,
+        # then it used to move the cursor to the next line, so CursorPosition.X would be 0.
+        # it seems to be now that CursorPosition is still set to the last char of the line before
+        $CurPos = $Host.UI.RawUI.CursorPosition
+        $CurPos.X = 0
+        $CurPos.Y++
+        $Host.UI.RawUI.CursorPosition = $CurPos
+    }
+
     for ($i = 1; $i -lt $Count; $i++) {
-        Write-Host ''.PadRight($Host.UI.RawUI.BufferSize.Width, ' ') -NoNewLine
+        Clear-SLConsoleLine -Char $Char
     }
 
     if ($Return) {
