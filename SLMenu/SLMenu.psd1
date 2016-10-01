@@ -1,5 +1,5 @@
 @{
-    ModuleVersion = '1.0.3'
+    ModuleVersion = '1.0.4'
     Description = 'Text User Interface Module for Powershell Console'
 
     Author = 'Steve Lowe'
