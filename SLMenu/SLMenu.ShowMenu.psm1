@@ -344,12 +344,12 @@ function DrawMenuBody {
 
         # if this is the selected menu item, then swap background and foreground colour
         if ($MenuPosition -eq $MenuItem.Number) {
-            $fg = $Host.UI.RawUI.BackgroundColor
-            $bg = $Host.UI.RawUI.ForegroundColor
+            $fg = $MenuItem.BackgroundColor
+            $bg = $MenuItem.ForegroundColor
         }
         else {
-            $fg = $Host.UI.RawUI.ForegroundColor
-            $bg = $Host.UI.RawUI.BackgroundColor
+            $fg = $MenuItem.ForegroundColor
+            $bg = $MenuItem.BackgroundColor
         }
         if ($MenuItem.IsComment) {
             Write-Host $MenuItem.Name -NoNewLine
