@@ -8,7 +8,7 @@ install:
   - ps: Install-Module -Name Pester -Force
   - ps: Install-Module -Name PSScriptAnalyzer -Force
 
-build: false
+build: off
 
 test_script:
   - ps: . .\Tests\appveyor.pester.ps1
