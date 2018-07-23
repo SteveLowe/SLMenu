@@ -41,8 +41,12 @@ function MenuYesNo {
 function MenuMessage {
     Write-Verbose "MenuMessage"
     $MenuItems = New-SLMenuItemList
+    $MenuItems.Add( (New-SLMenuItem -Key '1' -Name 'MenuItem Message' -Message 'This is the message') )
+    $MenuItems.Add( (New-SLMenuItem -Key '2' -Name 'MenuItem Message' -Message 'This is the colorful message' -ForegroundColor 'Red' -BackgroundColor 'Yellow') )
+    $MenuItems.Add( (New-SLMenuItem -Key '3' -Name 'MenuItem Message' -Message 'This is the front colorful message' -ForegroundColor 'Red') )
+    $MenuItems.Add( (New-SLMenuItem -Key '4' -Name 'MenuItem Message' -Message 'This is the back colorful message' -BackgroundColor 'DarkGreen') )
     $MenuItems.Add( (New-SLMenuItemQuit -Name 'Back') )
-    Show-SLMenu -MenuItems $MenuItems -Title 'Test Message' -Message 'This is a message' -Clear -LoopAfterChoice
+    Show-SLMenu -MenuItems $MenuItems -Title 'Test Message' -Message 'This is a menu message' -Clear -LoopAfterChoice
 }
 
 function MenuPosition {

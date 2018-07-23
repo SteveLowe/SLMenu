@@ -1,3 +1,4 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
 param ()
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
