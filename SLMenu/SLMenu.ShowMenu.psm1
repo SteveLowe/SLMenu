@@ -344,12 +344,12 @@ function DrawMenuBody {
 
         # if this is the selected menu item, then swap background and foreground colour
         if ($MenuPosition -eq $MenuItem.Number) {
-            $fg = $MenuItem.BackgroundColor
-            $bg = $MenuItem.ForegroundColor
+            $fg = $MenuItem.Style.ItemBackgroundColor
+            $bg = $MenuItem.Style.ItemForegroundColor
         }
         else {
-            $fg = $MenuItem.ForegroundColor
-            $bg = $MenuItem.BackgroundColor
+            $fg = $MenuItem.Style.ItemForegroundColor
+            $bg = $MenuItem.Style.ItemBackgroundColor
         }
         if ($MenuItem.IsComment) {
             Write-Host $MenuItem.Name -NoNewLine
@@ -363,7 +363,7 @@ function DrawMenuBody {
             Write-Host " $($MenuItem.Key): $($MenuItem.Name)" -NoNewLine -ForegroundColor $fg -BackgroundColor $bg
             if ($MenuItem.Message -ne '') {
                 Write-Host ' ' -NoNewLine
-                Write-Host $MenuItem.Message -ForegroundColor $MenuItem.ForegroundColor -BackgroundColor $MenuItem.BackgroundColor -NoNewLine
+                Write-Host $MenuItem.Message -ForegroundColor $MenuItem.Style.MessageForegroundColor -BackgroundColor $MenuItem.Style.MessageBackgroundColor -NoNewLine
             }
             Clear-SLConsoleLine
         }
