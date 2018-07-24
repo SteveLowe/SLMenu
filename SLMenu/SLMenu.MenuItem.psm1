@@ -113,11 +113,15 @@ function New-SLMenuItem {
         [int[]]$KeyNums = @(),
 
         [parameter(ParameterSetName='MenuItem')]
+        [parameter(ParameterSetName='MenuItem-styles')]
         [string]$Message = '',
         [parameter(ParameterSetName='MenuItem')]
-        [string]$ForegroundColor = $Host.UI.RawUI.ForegroundColor.ToString(),
+         [string]$ForegroundColor = $Host.UI.RawUI.ForegroundColor.ToString(),
         [parameter(ParameterSetName='MenuItem')]
         [string]$BackgroundColor = $Host.UI.RawUI.BackgroundColor.ToString(),
+
+        [parameter(ParameterSetName='MenuItem-styles')]
+        $Style = @{},
 
         [parameter(ParameterSetName='Separator')]
         [switch]$Separator,
@@ -134,11 +138,31 @@ function New-SLMenuItem {
         ExtraKeys = $ExtraKeys
         KeyNums = $KeyNums
         Message = $Message
-        ForegroundColor = $ForegroundColor
-        BackgroundColor = $BackgroundColor
+        Style = @{}
         IsSeparator = [bool]($PsCmdlet.ParameterSetName -ieq 'Separator' -and $Separator)
         IsComment = [bool]($PsCmdlet.ParameterSetName -ieq 'Comment' -and $Comment)
     }
+    If ($PSCmdlet.ParameterSetName -eq "MenuItem-styles") {
+        $MenuItem.Style = @{
+            MessageForegroundColor = $Host.UI.RawUI.ForegroundColor.ToString()
+            MessageBackgroundColor = $Host.UI.RawUI.BackgroundColor.ToString()
+            ItemForegroundColor = $Host.UI.RawUI.ForegroundColor.ToString()
+            ItemBackgroundColor = $Host.UI.RawUI.BackgroundColor.ToString()    
+        }
+        ForEach ($I in $Style.Keys) {
+            Write-Host $I
+            $MenuItem.Style[$I] = $Style[$I]
+            
+        }
+    } Else {
+        $MenuItem.Style = @{
+            MessageForegroundColor = $ForegroundColor
+            MessageBackgroundColor = $BackgroundColor
+            ItemForegroundColor = $Host.UI.RawUI.ForegroundColor.ToString()
+            ItemBackgroundColor = $Host.UI.RawUI.BackgroundColor.ToString()    
+        }
+    }
+    
     # Make sure Key and Is<x> match
     if ($Key -ieq ' ') { $MenuItem.IsComment = $true }
     elseif ($Key -ieq '-') { $MenuItem.IsSeparator = $true }
