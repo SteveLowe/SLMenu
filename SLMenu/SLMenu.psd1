@@ -36,6 +36,14 @@
     )
     AliasesToExport = @()
 
+    PrivateData = @{
+        PSData = @{
+            Tags = @('menu')
+            LicenseUri = 'https://github.com/SteveLowe/SLMenu/blob/master/LICENSE'
+            ProjectUri = 'https://github.com/SteveLowe/SLMenu'
+        }
+    }
+
     # Minimum version of the Windows PowerShell engine required by this module
     PowerShellVersion = '3.0'
     # Minimum version of Microsoft .NET Framework required by this module
