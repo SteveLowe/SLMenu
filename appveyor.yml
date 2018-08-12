@@ -1,0 +1,12 @@
+version: 1.0.{build}
+image: WMF 5
+install:
+- ps: >-
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Confirm:$false -Force -ErrorAction Stop
+
+    Install-Module -Name Pester -Force
+
+    Install-Module -Name PSScriptAnalyzer -Force
+build: off
+test_script:
+- ps: Tests\appveyor.pester.ps1
