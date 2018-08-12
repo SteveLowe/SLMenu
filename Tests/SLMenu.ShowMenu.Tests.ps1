@@ -14,7 +14,7 @@ Describe "Show-SLMenu" {
     Mock Write-Host {}
 
     It "throws with no input" {
-        {Show-SLMenu} | Should Throw
+        {Show-SLMenu} | Should -throw
     }
 }
 
@@ -27,14 +27,14 @@ Describe "SLMenu GetValidPositions" {
 
         It "throws when given empty menu" {
             $MenuItems = @()
-            {GetValidPositions -MenuItems $MenuItems} | Should Throw
+            {GetValidPositions -MenuItems $MenuItems} | Should -throw
         }
 
         It "throws when given menu with no selectable elements" {
             $MenuItems = [PSObject[]]@(
                 ([PSCustomObject]@{IsComment = $true; IsSeparator = $false})
             )
-            {GetValidPositions -MenuItems $MenuItems} | Should Throw
+            {GetValidPositions -MenuItems $MenuItems} | Should -throw
         }
 
         Context "When given menu with 4 items and only first one is selectable" {
@@ -47,10 +47,10 @@ Describe "SLMenu GetValidPositions" {
             $ValidPositions = GetValidPositions -MenuItems $MenuItems
 
             It "returns array of length 1" {
-                $ValidPositions.Length | Should Be 1
+                $ValidPositions.Length | Should -be 1
             }
             It "returns value 0" {
-                $ValidPositions[0] | Should Be 0
+                $ValidPositions[0] | Should -be 0
             }
         }
 
@@ -65,11 +65,11 @@ Describe "SLMenu GetValidPositions" {
             $ValidPositions = GetValidPositions -MenuItems $MenuItems
 
             It "returns array of length 5" {
-                $ValidPositions.Length | Should Be 5
+                $ValidPositions.Length | Should -be 5
             }
             0..4 | ForEach-Object {
                 It "returns value $_ for index $_" {
-                    $ValidPositions[$_] | Should Be $_
+                    $ValidPositions[$_] | Should -be $_
                 }
             }
         }
@@ -85,16 +85,16 @@ Describe "SLMenu GetValidPositions" {
             $ValidPositions = GetValidPositions -MenuItems $MenuItems
 
             It "returns array of length 3" {
-                $ValidPositions.Length | Should Be 3
+                $ValidPositions.Length | Should -be 3
             }
             It "returns value 0 for index 0" {
-                $ValidPositions[0] | Should Be 0
+                $ValidPositions[0] | Should -be 0
             }
             It "returns value 2 for index 1" {
-                $ValidPositions[1] | Should Be 2
+                $ValidPositions[1] | Should -be 2
             }
             It "returns value 4 for index 2" {
-                $ValidPositions[2] | Should Be 4
+                $ValidPositions[2] | Should -be 4
             }
         }
 
@@ -109,16 +109,16 @@ Describe "SLMenu GetValidPositions" {
             $ValidPositions = GetValidPositions -MenuItems $MenuItems
 
             It "returns array of length 3" {
-                $ValidPositions.Length | Should Be 3
+                $ValidPositions.Length | Should -be 3
             }
             It "returns value 1 for index 0" {
-                $ValidPositions[0] | Should Be 1
+                $ValidPositions[0] | Should -be 1
             }
             It "returns value 2 for index 1" {
-                $ValidPositions[1] | Should Be 2
+                $ValidPositions[1] | Should -be 2
             }
             It "returns value 4 for index 2" {
-                $ValidPositions[2] | Should Be 4
+                $ValidPositions[2] | Should -be 4
             }
         }
     }

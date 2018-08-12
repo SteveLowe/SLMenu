@@ -5,7 +5,7 @@ Import-Module "$here\..\SLMenu\SLMenu.ShowMenu.psm1"
 Import-Module "$here\..\SLMenu\$script"
 
 Describe "Show-SLMenuYesNo" {
-    Mock -ModuleName 'SLMenu.Menus' Show-SLMenu { return $MenuItems[$Position] } -Veryifiable
+    Mock -ModuleName 'SLMenu.Menus' Show-SLMenu { return $MenuItems[$Position] }
 
     It "called Show-SLMenu" {
         Show-SLMenuYesNo > $null
@@ -23,10 +23,10 @@ Describe "Show-SLMenuYesNo" {
     }
 
     It "returns true when yes is default and default selected" {
-        Show-SLMenuYesNo | Should Be $true
+        Show-SLMenuYesNo | Should -be $true
     }
 
     It "returns false when no is default and default selected" {
-        Show-SLMenuYesNo -DefaultNo | Should Be $false
+        Show-SLMenuYesNo -DefaultNo | Should -be $false
     }
 }
